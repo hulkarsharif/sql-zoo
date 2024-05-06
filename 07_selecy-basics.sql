@@ -80,3 +80,23 @@ AND casting.ord != 1)
 JOIN actor ON (casting.actorid = actor.id)
 WHERE 
 actor.name="Harrison Ford"
+
+
+-- 10.
+-- List the films together with the leading star for all 1962 films.
+
+SELECT movie.title, actor.name
+FROM movie JOIN casting ON (movie.id=casting.movieid AND casting.ord=1)  
+JOIN actor ON (casting.actorid=actor.id)   
+WHERE yr=1962
+
+-- 11.
+-- Which were the busiest years for 'Rock Hudson', show the year and the number of movies he made each year for any year in which he made more than 2 movies.
+
+SELECT yr,COUNT(title) As num_movies
+ FROM
+  movie JOIN casting ON movie.id=movieid
+        JOIN actor   ON actorid=actor.id
+WHERE name='Rock Hudson'
+GROUP BY yr
+HAVING COUNT(title) > 2
